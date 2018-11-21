@@ -18,7 +18,7 @@ Move to the directory of the clone and start the Server and Client:
 
 ```
 python3 chat_room_server.py
-python3 chat_room_client.py
+python3 chat_room_client.py (Host Server IP)
 ```
 
 ### Style Guide
