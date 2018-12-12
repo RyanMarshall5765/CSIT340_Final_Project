@@ -33,13 +33,13 @@ def start_server():
                 continue
             clients.add(user)
             msg = msg.decode('utf-8')
+            for client in clients:
+                if client != user:
+                    s.sendto(msg.encode('utf-8'), client)
             if msg.endswith('leave'):
                 clients.remove(user)
                 continue
             print(str(user)+msg)
-            for client in clients:
-                if client != user:
-                    s.sendto(msg.encode('utf-8'), client)
     s.close()
 
 

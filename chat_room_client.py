@@ -25,20 +25,24 @@ def start_client(host_ip):
     print('Client IP: '+str(HOST)+' Port: '+str(PORT))
     server_address = (str(host_ip), 5000)
     user_name = input('Please write your username here: ')
+    print('Your username is: '+user_name)
     if user_name == '':
         user_name = 'Guest'+str(randint(1, 100000))
         print('Your username is:'+user_name)
-    s.sendto(user_name.encode('utf-8'), server_address)
+    entermsg = user_name + " has joined the room"
+    s.sendto(entermsg.encode('utf-8'), server_address)
+    s.sendto(entermsg.encode('utf-8'), server_address)
     Thread(target=receive_msg, args=(s,)).start()
     while True:
         msg = input()
         if msg == 'leave':
+            msg = user_name+" has left the room."
+            s.sendto(msg.encode('utf-8'), server_address)
             break
         elif msg == '':
             continue
         msg = '['+user_name+']' + ': ' + msg
         s.sendto(msg.encode('utf-8'), server_address)
-    s.sendto(msg.encode('utf-8'), server_address)
     s.close()
     os._exit(1)
 
